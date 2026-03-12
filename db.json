@@ -1,0 +1,83 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "Admin"
+    },
+    {
+      "id": "3",
+      "name": "Mike Brown",
+      "email": "mike@example.com",
+      "role": "User"
+    },
+    {
+      "id": "4",
+      "name": "Lisa Wong",
+      "email": "lisa@example.com",
+      "role": "Admin"
+    },
+    {
+      "id": "5",
+      "name": "David Kim",
+      "email": "david@example.com",
+      "role": "User"
+    },
+    {
+      "id": "6",
+      "name": "Emma White",
+      "email": "emma@example.com",
+      "role": "User"
+    },
+    {
+      "id": "7",
+      "name": "Noah Black",
+      "email": "noah@example.com",
+      "role": "Admin"
+    },
+    {
+      "id": "8",
+      "name": "Olivia Green",
+      "email": "olivia@example.com",
+      "role": "User"
+    },
+    {
+      "id": "9",
+      "name": "William Stone",
+      "email": "william@example.com",
+      "role": "User"
+    },
+    {
+      "id": "10",
+      "name": "Sophia Gray",
+      "email": "sophia@example.com",
+      "role": "Admin"
+    },
+    {
+      "id": "11",
+      "name": "James Fox",
+      "email": "james@example.com",
+      "role": "User"
+    },
+    {
+      "id": "12",
+      "name": "Ava Wood",
+      "email": "ava@example.com",
+      "role": "User"
+    },
+    {
+      "id": "c06a",
+      "name": "Toph",
+      "email": "toph@email.com",
+      "role": "Admin"
+    },
+    {
+      "id": "f682",
+      "name": "Pablo",
+      "email": "pablo.escobar@email.com",
+      "role": "User"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

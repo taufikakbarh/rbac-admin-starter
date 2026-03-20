@@ -5,16 +5,41 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { DataTable } from "@/shared/components/data-display/data-table"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { UsersRowActions } from "./users-row-actions"
 
 import { User } from "../types/user"
 
 interface UsersTableProps {
   data: User[]
-  loading?: boolean
+  loading?: boolean,
+  renderToolbar?: (table: any) => React.ReactNode,
 }
 
 const columns: ColumnDef<User>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) =>
+          table.toggleAllPageRowsSelected(!!value)
+        }
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) =>
+          row.toggleSelected(!!value)
+        }
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -54,6 +79,7 @@ const columns: ColumnDef<User>[] = [
 export function UsersTable({
   data,
   loading,
+  renderToolbar,
 }: UsersTableProps) {
 
   return (
@@ -61,6 +87,7 @@ export function UsersTable({
       columns={columns}
       data={data}
       loading={loading}
+      renderToolbar={renderToolbar}
     />
   )
 }

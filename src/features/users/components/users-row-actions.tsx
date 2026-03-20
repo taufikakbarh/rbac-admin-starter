@@ -26,6 +26,7 @@ import { useState } from "react"
 
 import { User } from "../types/user"
 import { useDeleteUser } from "../hooks/use-delete-user"
+import { Can } from "@/shared/components/permission/can"
 
 interface Props {
   user: User
@@ -50,7 +51,6 @@ export function UsersRowActions({ user }: Props) {
   return (
     <>
       <DropdownMenu>
-
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
             <MoreHorizontal className="h-4 w-4" />
@@ -63,23 +63,25 @@ export function UsersRowActions({ user }: Props) {
             Edit
           </DropdownMenuItem>
 
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-            className="text-red-600"
-          >
-            Delete
-          </DropdownMenuItem>
+          <Can permission="users.delete">
+            <DropdownMenuItem
+              onClick={() => setOpen(true)}
+              className="text-red-500"
+              >
+              Delete
+            </DropdownMenuItem>
+          </Can>
 
         </DropdownMenuContent>
-
       </DropdownMenu>
 
+      {/* CONFIRMATION MODAL */}
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
 
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Delete this user?
+              Are you sure you want to delete this user?
             </AlertDialogTitle>
           </AlertDialogHeader>
 
@@ -90,7 +92,7 @@ export function UsersRowActions({ user }: Props) {
 
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-red-600"
+              className="bg-red-500 hover:bg-red-600"
             >
               Delete
             </AlertDialogAction>

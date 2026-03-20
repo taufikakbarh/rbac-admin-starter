@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation"
 
 import { PageContainer } from "@/shared/components/layout/page-container"
 import { PageHeader } from "@/shared/components/layout/page-header"
+import { PageCard } from "@/shared/components/layout/page-card"
 
 import { UserForm } from "../components/user-form"
 import { useUser } from "../hooks/use-user"
@@ -40,12 +41,14 @@ export default function EditUserPage({ id }: Props) {
         description="Update user information"
       />
 
-      <UserForm
-        defaultValues={data}
-        onSubmit={handleSubmit}
-        loading={updateUser.isPending}
-        submitLabel="Update User"
-      />
+      <PageCard>
+        <UserForm
+          defaultValues={data}
+          onSubmit={handleSubmit}
+          loading={updateUser.isPending}
+          submitLabel="Update User"
+        />
+      </PageCard>
 
     </PageContainer>
   )

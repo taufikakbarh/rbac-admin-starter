@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-
 import { useRouter, useSearchParams } from "next/navigation"
 
 import { PageContainer } from "@/shared/components/layout/page-container"
@@ -9,6 +7,7 @@ import { PageHeader } from "@/shared/components/layout/page-header"
 import { PageCard } from "@/shared/components/layout/page-card"
 import { DataTableToolbar } from "@/shared/components/data-display/data-table-toolbar"
 import { DataTablePagination } from "@/shared/components/data-display/data-table-pagination"
+import { Can } from "@/shared/components/permission/can"
 
 import { UsersTable } from "../components/users-table"
 import { useUsers } from "../hooks/use-users"
@@ -66,24 +65,28 @@ export default function UsersPage() {
         title="Users"
         description="Manage system users"
         action={
-          <Button asChild>
-            <a href="/users/create">Add User</a>
-          </Button>
+          <Can permission="users.create">
+            <Button asChild>
+              <a href="/users/create">Add User</a>
+            </Button>
+          </Can>
         }
       />
 
       <PageCard>
 
-        <DataTableToolbar
-          search={search}
-          role={role}
-          onSearchChange={setSearch}
-          onRoleChange={setRole}
-        />
-
         <UsersTable
           data={data?.data ?? []}
           loading={isLoading}
+          renderToolbar={(table) => (
+            <DataTableToolbar
+              table={table}
+              search={search}
+              role={role}
+              onSearchChange={setSearch}
+              onRoleChange={setRole}
+            />
+          )}
         />
 
         <DataTablePagination

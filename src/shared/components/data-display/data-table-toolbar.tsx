@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select"
 
 import { DataTableViewOptions } from "./data-table-view-options"
+import { DataTableBulkActions } from "./data-table-bulk-actions"
 
 interface Props {
   search?: string
@@ -34,6 +35,9 @@ export function DataTableToolbar({
 
   const debounced = useDebounce(value, 500)
 
+  const selectedRows = table?.getFilteredSelectedRowModel().rows ?? []
+  const selectedCount = selectedRows.length
+
   // update URL only when debounce changes
   useEffect(() => {
     if (debounced !== search) {
@@ -48,32 +52,44 @@ export function DataTableToolbar({
 
   return (
     <div className="flex items-center py-4 gap-4">
-      <Input
-        placeholder="Search users..."
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        className="max-w-sm"
-      />
+      {selectedCount > 0 ? (
+        <DataTableBulkActions
+          table={table}
+          selectedRows={selectedRows}
+        />
+      ) : (
+        <div className="flex items-center gap-4">
 
-      <Select
-        value={role ?? ""}
-        onValueChange={(value) => onRoleChange?.(value)}
-      >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Role" />
-        </SelectTrigger>
+          <Input
+            placeholder="Search users..."
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            className="max-w-sm"
+          />
 
-        <SelectContent>
-          <SelectItem value="all">All</SelectItem>
-          <SelectItem value="Admin">Admin</SelectItem>
-          <SelectItem value="User">User</SelectItem>
-        </SelectContent>
+          <Select
+            value={role ?? ""}
+            onValueChange={(value) =>
+              onRoleChange?.(value)
+            }
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Role" />
+            </SelectTrigger>
 
-      </Select>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="Admin">Admin</SelectItem>
+              <SelectItem value="User">User</SelectItem>
+            </SelectContent>
+          </Select>
 
-      <div className="flex items-center gap-2">
-        {table && <DataTableViewOptions table={table} />}
-      </div>
+          {table && (
+            <DataTableViewOptions table={table} />
+          )}
+
+        </div>
+      )}
     </div>
   )
 }

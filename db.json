@@ -49,18 +49,6 @@
       "role": "User"
     },
     {
-      "id": "10",
-      "name": "Sophia Gray",
-      "email": "sophia@example.com",
-      "role": "Admin"
-    },
-    {
-      "id": "11",
-      "name": "James Fox",
-      "email": "james@example.com",
-      "role": "User"
-    },
-    {
       "id": "12",
       "name": "Ava Wood",
       "email": "ava@example.com",
@@ -77,6 +65,36 @@
       "name": "Pablo",
       "email": "pablo.escobar@email.com",
       "role": "User"
+    },
+    {
+      "id": "f97d",
+      "name": "Don Corloeno",
+      "email": "don@email.com",
+      "role": "Admin"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "permissions": [
+        "users.view",
+        "users.create",
+        "users.update",
+        "users.delete",
+        "roles.view",
+        "roles.create",
+        "roles.update",
+        "roles.delete"
+      ]
+    },
+    {
+      "name": "Viewer",
+      "permissions": [
+        "users.view",
+        "roles.view"
+      ],
+      "id": "2"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

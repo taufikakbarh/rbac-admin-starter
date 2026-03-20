@@ -1,8 +1,8 @@
 "use client"
 
 import { createContext, useContext } from "react"
-import { useRoles } from "@/features/roles/hooks/use-roles"
-import { Permission } from "../types/permission"
+import { useAllRoles } from "@/features/roles/hooks/use-all-roles"
+import { Permission } from "../constants/permissions"
 import { useAuth } from "./auth-provider"
 
 interface PermissionContextValue {
@@ -13,13 +13,14 @@ const PermissionContext = createContext<PermissionContextValue>({
   permissions: [],
 })
 
-export function PermissionProvider({
-  children,
-}: {
+interface Props {
   children: React.ReactNode
-}) {
+}
+
+export function PermissionProvider({ children }: Props) {
+
   const { user } = useAuth()
-  const { data: roles = [] } = useRoles()
+  const { data: roles = [] } = useAllRoles()
 
   const role = roles.find((r) => r.name === user?.role)
 

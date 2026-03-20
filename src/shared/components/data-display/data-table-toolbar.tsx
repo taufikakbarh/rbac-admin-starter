@@ -19,6 +19,7 @@ interface Props {
   search?: string
   role?: string
   table?: any
+  showRoleFilter?: boolean
   onSearchChange?: (value: string) => void
   onRoleChange?: (value: string) => void
 }
@@ -27,6 +28,7 @@ export function DataTableToolbar({
   search = "",
   role = "",
   table,
+  showRoleFilter,
   onSearchChange,
   onRoleChange,
 }: Props) {
@@ -67,6 +69,7 @@ export function DataTableToolbar({
             className="max-w-sm"
           />
 
+          {showRoleFilter && (
           <Select
             value={role ?? ""}
             onValueChange={(value) =>
@@ -81,8 +84,10 @@ export function DataTableToolbar({
               <SelectItem value="all">All</SelectItem>
               <SelectItem value="Admin">Admin</SelectItem>
               <SelectItem value="User">User</SelectItem>
+              <SelectItem value="Editor">Editor</SelectItem>
             </SelectContent>
           </Select>
+          )}
 
           {table && (
             <DataTableViewOptions table={table} />

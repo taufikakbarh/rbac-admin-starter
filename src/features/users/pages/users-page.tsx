@@ -83,6 +83,7 @@ export default function UsersPage() {
               table={table}
               search={search}
               role={role}
+              showRoleFilter
               onSearchChange={setSearch}
               onRoleChange={setRole}
             />

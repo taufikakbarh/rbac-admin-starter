@@ -31,12 +31,17 @@ const columns: ColumnDef<Role>[] = [
   }
 ]
 
+interface Props {
+  data: Role[]
+  loading?: boolean
+  renderToolbar?: (table: any) => React.ReactNode
+}
+
 export function RolesTable({
   data,
   loading,
   renderToolbar,
 }: Props) {
-
   return (
     <DataTable
       columns={columns}

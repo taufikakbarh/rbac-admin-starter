@@ -11,20 +11,23 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-import { useDeleteUsers } from "@/features/users/hooks/use-delete-users"
 import { Can } from "@/shared/components/permission/can"
 
-interface Props {
+interface Props<TData> {
   table: any
   selectedRows: any[]
+  onDelete?: (ids: string[]) => void
+  deletePermission?: string
+  entityName?: string
 }
 
-export function DataTableBulkActions({
+export function DataTableBulkActions<TData>({
   table,
   selectedRows,
-}: Props) {
-
-  const deleteUsersMutation = useDeleteUsers()
+  onDelete,
+  deletePermission,
+  entityName = "items",
+}: Props<TData>) {
 
   const selectedIds = selectedRows.map(
     (row) => row.original.id
@@ -41,55 +44,43 @@ export function DataTableBulkActions({
         {selectedRows.length} selected
       </span>
 
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Can permission="users.delete">
-            <Button
-              variant="destructive"
-              size="sm"
-            >
-              Delete
-            </Button>
-          </Can>
-        </AlertDialogTrigger>
+      {onDelete && (
+        <Can permission={deletePermission as any}>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="sm">
+                Delete
+              </Button>
+            </AlertDialogTrigger>
 
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              Delete {selectedRows.length} users?
-            </AlertDialogTitle>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Delete {selectedRows.length} {entityName}?
+                </AlertDialogTitle>
 
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete
-              the selected users.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+                <AlertDialogDescription>
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
 
-          <AlertDialogFooter>
-            <AlertDialogCancel>
-              Cancel
-            </AlertDialogCancel>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-            <AlertDialogAction
-              onClick={() => {
-                deleteUsersMutation.mutate(selectedIds)
-                table.resetRowSelection()
-              }}
-              className="bg-red-600"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => console.log("change role", selectedIds)}
-      >
-        Change Role
-      </Button>
+                <AlertDialogAction
+                  onClick={() => {
+                    onDelete(selectedIds)
+                    clearSelection()
+                  }}
+                  className="bg-red-600"
+                >
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </Can>
+      )}
 
       <Button
         variant="ghost"

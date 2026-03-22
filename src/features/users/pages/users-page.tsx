@@ -11,12 +11,16 @@ import { Can } from "@/shared/components/permission/can"
 
 import { UsersTable } from "../components/users-table"
 import { useUsers } from "../hooks/use-users"
+import { useDeleteUsers } from "../hooks/use-delete-users"
 
 import { Button } from "@/components/ui/button"
+import { EmptyState } from "@/shared/components/empty-state"
+import { Inbox } from "lucide-react"
 
 export default function UsersPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const deleteUsersMutation = useDeleteUsers()
 
   const page = Number(searchParams.get("page") ?? 1)
   const limit = Number(searchParams.get("limit") ?? 10)
@@ -29,6 +33,9 @@ export default function UsersPage() {
     search,
     role
   )
+
+  const hasFilters = !!search || !!role
+  const isSystemEmpty = (data?.total ?? 0) === 0 && !hasFilters
 
   function setPage(newPage: number) {
     const params = new URLSearchParams(searchParams)
@@ -75,27 +82,47 @@ export default function UsersPage() {
 
       <PageCard>
 
-        <UsersTable
-          data={data?.data ?? []}
-          loading={isLoading}
-          renderToolbar={(table) => (
-            <DataTableToolbar
-              table={table}
-              search={search}
-              role={role}
-              showRoleFilter
-              onSearchChange={setSearch}
-              onRoleChange={setRole}
+        {isSystemEmpty ? (
+          <EmptyState
+            title="No users yet"
+            description="Start by adding your first user"
+            icon={<Inbox className="w-6 h-6" />}
+            action={
+              <Button asChild>
+                <a href="/users/create">Add User</a>
+              </Button>
+            }
+          />
+        ) : (
+          <>
+            <UsersTable
+              data={data?.data ?? []}
+              loading={isLoading}
+              renderToolbar={(table) => (
+                <DataTableToolbar
+                  table={table}
+                  search={search}
+                  role={role}
+                  showRoleFilter
+                  onSearchChange={setSearch}
+                  onRoleChange={setRole}
+                  onBulkDelete={(ids) => deleteUsersMutation.mutate(ids)}
+                  deletePermission="users.delete"
+                  entityName="users"
+                />
+              )}
             />
-          )}
-        />
 
-        <DataTablePagination
-          page={page}
-          limit={limit}
-          total={data?.total ?? 0}
-          onPageChange={setPage}
-        />
+            {(data?.total ?? 0) > 0 && (
+              <DataTablePagination
+                page={page}
+                limit={limit}
+                total={data?.total ?? 0}
+                onPageChange={setPage}
+              />
+            )}
+          </>
+        )}
 
       </PageCard>
 

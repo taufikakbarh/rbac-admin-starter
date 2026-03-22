@@ -11,12 +11,16 @@ import { Can } from "@/shared/components/permission/can"
 
 import { RolesTable } from "../components/roles-table"
 import { useRoles } from "../hooks/use-roles"
+import { useDeleteRoles } from "../hooks/use-delete-roles"
 
 import { Button } from "@/components/ui/button"
+import { EmptyState } from "@/shared/components/empty-state"
+import { Inbox } from "lucide-react"
 
 export default function RolesPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const deleteRolesMutation = useDeleteRoles()
 
   const page = Number(searchParams.get("page") ?? 1)
   const limit = Number(searchParams.get("limit") ?? 10)
@@ -27,6 +31,9 @@ export default function RolesPage() {
     limit,
     search
   )
+  
+  const hasFilters = !!search
+  const isSystemEmpty = (data?.total ?? 0) === 0 && !hasFilters
 
   function setPage(newPage: number) {
     const params = new URLSearchParams(searchParams)
@@ -57,25 +64,44 @@ export default function RolesPage() {
       />
 
       <PageCard>
-
-        <RolesTable
-          data={data?.data ?? []}
-          loading={isLoading}
-          renderToolbar={(table) => (
-            <DataTableToolbar
-              table={table}
-              search={search}
-              onSearchChange={setSearch}
+        {isSystemEmpty ? (
+          <EmptyState
+            title="No roles yet"
+            description="Start by adding your first role"
+            icon={<Inbox className="w-6 h-6" />}
+            action={
+              <Button asChild>
+                <a href="/roles/create">Add Role</a>
+              </Button>
+            }
+          />
+        ):(
+          <>
+            <RolesTable
+              data={data?.data ?? []}
+              loading={isLoading}
+              renderToolbar={(table) => (
+                <DataTableToolbar
+                  table={table}
+                  search={search}
+                  onSearchChange={setSearch}
+                  onBulkDelete={(ids) => deleteRolesMutation.mutate(ids)}
+                  deletePermission="roles.delete"
+                  entityName="roles"
+                />
+              )}
             />
-          )}
-        />
 
-        <DataTablePagination
-          page={page}
-          limit={limit}
-          total={data?.total ?? 0}
-          onPageChange={setPage}
-        />
+            {(data?.total ?? 0) > 0 && (
+              <DataTablePagination
+                page={page}
+                limit={limit}
+                total={data?.total ?? 0}
+                onPageChange={setPage}
+              />
+            )}
+          </>
+        )}
 
       </PageCard>
 

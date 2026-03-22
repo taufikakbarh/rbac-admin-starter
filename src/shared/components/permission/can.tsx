@@ -1,6 +1,6 @@
 "use client"
 
-import { Permission } from "@/shared/types/permission"
+import { Permission } from "@/shared/constants/permissions"
 import { usePermission } from "@/shared/hooks/use-permission"
 
 interface Props {

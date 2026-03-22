@@ -13,6 +13,7 @@ import { User } from "../types/user"
 interface UsersTableProps {
   data: User[]
   loading?: boolean,
+  emptyState?: React.ReactNode
   renderToolbar?: (table: any) => React.ReactNode,
 }
 
@@ -79,6 +80,7 @@ const columns: ColumnDef<User>[] = [
 export function UsersTable({
   data,
   loading,
+  emptyState,
   renderToolbar,
 }: UsersTableProps) {
 
@@ -88,6 +90,7 @@ export function UsersTable({
       data={data}
       loading={loading}
       renderToolbar={renderToolbar}
+      emptyState={emptyState}
     />
   )
 }

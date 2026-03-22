@@ -22,6 +22,9 @@ interface Props {
   showRoleFilter?: boolean
   onSearchChange?: (value: string) => void
   onRoleChange?: (value: string) => void
+  onBulkDelete?: (ids: string[]) => void
+  deletePermission?: string
+  entityName?: string
 }
 
 export function DataTableToolbar({
@@ -31,6 +34,9 @@ export function DataTableToolbar({
   showRoleFilter,
   onSearchChange,
   onRoleChange,
+  onBulkDelete,
+  deletePermission,
+  entityName,
 }: Props) {
 
   const [value, setValue] = useState(search)
@@ -58,35 +64,38 @@ export function DataTableToolbar({
         <DataTableBulkActions
           table={table}
           selectedRows={selectedRows}
+          onDelete={onBulkDelete}
+          deletePermission={deletePermission}
+          entityName={entityName}
         />
       ) : (
         <div className="flex items-center gap-4">
 
           <Input
-            placeholder="Search users..."
+            placeholder={`Search ${entityName}...`}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="max-w-sm"
           />
 
           {showRoleFilter && (
-          <Select
-            value={role ?? ""}
-            onValueChange={(value) =>
-              onRoleChange?.(value)
-            }
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Role" />
-            </SelectTrigger>
+            <Select
+              value={role ?? ""}
+              onValueChange={(value) =>
+                onRoleChange?.(value)
+              }
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Role" />
+              </SelectTrigger>
 
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="Admin">Admin</SelectItem>
-              <SelectItem value="User">User</SelectItem>
-              <SelectItem value="Editor">Editor</SelectItem>
-            </SelectContent>
-          </Select>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="Admin">Admin</SelectItem>
+                <SelectItem value="User">User</SelectItem>
+                <SelectItem value="Editor">Editor</SelectItem>
+              </SelectContent>
+            </Select>
           )}
 
           {table && (

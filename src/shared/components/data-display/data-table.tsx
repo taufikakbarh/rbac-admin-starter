@@ -20,10 +20,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { TableSkeleton } from "@/shared/components/skeletons/table-skeleton"
+
+import { EmptyState } from "../empty-state"
+import { Inbox } from "lucide-react"
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   loading?: boolean
+  emptyState?: React.ReactNode
   renderToolbar?: (table: any) => React.ReactNode
 }
 
@@ -31,7 +37,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   loading,
-  renderToolbar
+  emptyState,
+  renderToolbar,
 }: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = useState<SortingState>([])
@@ -58,8 +65,13 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
   })
 
+  if (loading) {
+    return <TableSkeleton />
+  }
+
   return (
     <div>
+
       {renderToolbar && (
         <div className="flex items-center justify-between py-4">
           {renderToolbar(table)}
@@ -88,7 +100,7 @@ export function DataTable<TData, TValue>({
           </TableHeader>
 
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {data.length > 0 ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
@@ -103,11 +115,16 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
+                <TableCell colSpan={columns.length}>
+                  <div className="h-[300px] flex items-center justify-center">
+                    {emptyState ?? (
+                      <EmptyState
+                        icon={<Inbox className="w-6 h-6" />}
+                        title="No results found"
+                        description="Try adjusting your search or filters"
+                      />
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
             )}

@@ -1,3 +1,1 @@
-export default function DashboardPage() {
-  return <div>Dashboard</div>
-}
+export { default } from "@/features/dashboard/pages/dashboard-page"

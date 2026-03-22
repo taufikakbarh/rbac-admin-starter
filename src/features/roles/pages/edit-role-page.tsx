@@ -9,10 +9,13 @@ import { PageCard } from "@/shared/components/layout/page-card"
 import { RoleForm } from "../components/role-form"
 import { useRole } from "../hooks/use-role"
 
-export default function EditRolePage() {
+interface Props {
+  id: string
+}
+
+export default function EditRolePage({ id }: Props) {
 
   const params = useParams()
-  const id = params.id as string
 
   const { data, isLoading } = useRole(id)
 

@@ -11,20 +11,22 @@ import { DashboardStats } from "../components/dashboard-stats"
 import { DashboardRoleDistribution } from "../components/dashboard-role-distribution"
 import { DashboardRecentUsers } from "../components/dashboard-recent-users"
 import { DashboardSkeleton } from "@/shared/components/skeletons/dashboard-skeleton"
-import { Skeleton } from "@/components/ui/skeleton"
+import { DashboardUsersByRole } from "../components/dashboard-users-by-role"
+import { ChartSkeleton } from "@/shared/components/skeletons/chart-skeleton"
 import { EmptyState } from "@/shared/components/empty-state"
 
 export default function DashboardPage() {
 
-  const { data: usersData } = useUsers(1, 100, "", "")
+  const { data: usersData, isLoading } = useUsers(1, 100, "", "")
   const users = usersData?.data ?? []
 
-  const { data: roles = [] } = useAllRoles()
+  const { data: rolesData } = useAllRoles()
+  const roles = rolesData ?? []
 
-  if (!usersData) {
+  if (isLoading) {
     return (
       <>
-        <Skeleton />
+        <ChartSkeleton />
         <DashboardSkeleton />
       </>
     )
@@ -47,22 +49,31 @@ export default function DashboardPage() {
         description="Overview of your system"
       />
 
-      {/* STATS */}
-      <PageCard>
-        <DashboardStats
-          totalUsers={usersData?.total ?? 0}
-          totalRoles={roles.length}
-        />
-      </PageCard>
+      {users.length === 0 ? (
+        <PageCard>
+          <EmptyState
+            title="No users yet"
+            description="Create your first user to get started"
+          />
+        </PageCard>
+      ):(
+        <>
+          {/* STATS */}
+          <DashboardStats
+            totalUsers={usersData?.total ?? 0}
+            totalRoles={roles.length}
+          />
 
-      {/* INSIGHTS */}
-      <div className="grid gap-4 md:grid-cols-2 mt-4">
+          {/* CHART */}
+          <DashboardUsersByRole users={users} />
 
-        <DashboardRoleDistribution users={users} />
-
-        <DashboardRecentUsers users={users} />
-
-      </div>
+          {/* INSIGHTS */}
+          <div className="grid gap-4 md:grid-cols-2 mt-4">
+            <DashboardRoleDistribution users={users} />
+            <DashboardRecentUsers users={users} />
+          </div>
+        </>
+      )}
 
     </PageContainer>
   )

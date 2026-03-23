@@ -1,4 +1,4 @@
-import { Permission } from "@/shared/types/permission"
+import { Permission } from "@/shared/constants/permissions"
 
 export interface Role {
   id: string

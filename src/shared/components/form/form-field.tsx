@@ -13,21 +13,17 @@ export function FormField({
 }: Props) {
   return (
     <div className="space-y-2">
+      {label && <label className="text-sm font-medium">{label}</label>}
 
-      {label && (
-        <label className="text-sm font-medium">
-          {label}
-        </label>
-      )}
-
-      {children}
+      <div className={error ? "border-red-500 rounded-md" : ""}>
+        {children}
+      </div>
 
       {error && (
         <p className="text-sm text-red-500">
           {error}
         </p>
       )}
-
     </div>
   )
 }

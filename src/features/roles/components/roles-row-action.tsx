@@ -18,7 +18,6 @@ import { useDeleteRole } from "../hooks/use-delete-role"
 
 import {
   AlertDialog,
-  AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -26,6 +25,8 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog"
+
+import { mutateWithToast } from "@/shared/utils/mutate-with-toast"
 
 
 interface Props {
@@ -44,10 +45,13 @@ export function RolesRowActions({ role }: Props) {
   }
 
   function handleDelete() {
-    deleteRole.mutate(role.id, {
-      onSuccess: () => {
-        setOpen(false)
-      },
+    mutateWithToast({
+      mutation: deleteRole,
+      variables: role.id,
+      loadingMessage: "Deleting role...",
+      successMessage: "Role deleted successfully",
+      errorMessage: "Failed to delete role",
+      onSuccess: () => setOpen(false),
     })
   }
 

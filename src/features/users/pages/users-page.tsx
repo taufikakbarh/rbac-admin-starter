@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
 
 import { PageContainer } from "@/shared/components/layout/page-container"
 import { PageHeader } from "@/shared/components/layout/page-header"
@@ -74,7 +75,7 @@ export default function UsersPage() {
         action={
           <Can permission="users.create">
             <Button asChild>
-              <a href="/users/create">Add User</a>
+              <Link href="/users/create">Add User</Link>
             </Button>
           </Can>
         }
@@ -89,7 +90,7 @@ export default function UsersPage() {
             icon={<Inbox className="w-6 h-6" />}
             action={
               <Button asChild>
-                <a href="/users/create">Add User</a>
+                <Link href="/users/create">Add User</Link>
               </Button>
             }
           />

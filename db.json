@@ -62,15 +62,15 @@
     },
     {
       "id": "f682",
-      "name": "Pablo",
+      "name": "Pablo Escobar",
       "email": "pablo.escobar@email.com",
-      "role": "User"
+      "role": "Editor"
     },
     {
-      "id": "f97d",
-      "name": "Don Corloeno",
-      "email": "don@email.com",
-      "role": "Admin"
+      "id": "e132",
+      "name": "Isac",
+      "email": "isac@email.com",
+      "role": "Editor"
     }
   ],
   "roles": [
@@ -97,14 +97,14 @@
       "id": "2"
     },
     {
-      "id": "c561",
       "name": "Editor",
       "permissions": [
         "users.view",
         "users.update",
         "roles.view",
         "roles.update"
-      ]
+      ],
+      "id": "c561"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

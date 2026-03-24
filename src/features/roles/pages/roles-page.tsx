@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
 
 import { PageContainer } from "@/shared/components/layout/page-container"
 import { PageHeader } from "@/shared/components/layout/page-header"
@@ -57,7 +58,7 @@ export default function RolesPage() {
         action={
           <Can permission="roles.create">
             <Button asChild>
-              <a href="/roles/create">Add Role</a>
+              <Link href="/roles/create">Add Role</Link>
             </Button>
           </Can>
         }
@@ -71,7 +72,7 @@ export default function RolesPage() {
             icon={<Inbox className="w-6 h-6" />}
             action={
               <Button asChild>
-                <a href="/roles/create">Add Role</a>
+                <Link href="/roles/create">Add Role</Link>
               </Button>
             }
           />

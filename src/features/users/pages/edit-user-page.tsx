@@ -9,6 +9,7 @@ import { PageCard } from "@/shared/components/layout/page-card"
 import { UserForm } from "../components/user-form"
 import { useUser } from "../hooks/use-user"
 import { useUpdateUser } from "../hooks/use-update-user"
+import { mutateWithToast } from "@/shared/utils/mutate-with-toast"
 
 interface Props {
   id: string
@@ -20,17 +21,21 @@ export default function EditUserPage({ id }: Props) {
   const { data, isLoading } = useUser(id)
   const updateUser = useUpdateUser()
 
-  if (isLoading || !data) return <div>Loading...</div>
+  if (isLoading ) return <div>Loading...</div>
+
+  if (!data) return <div>user not found</div>
 
   function handleSubmit(values: any) {
-    updateUser.mutate(
-      { id, data: values },
-      {
-        onSuccess: () => {
-          router.push("/users")
-        },
-      }
-    )
+    mutateWithToast({
+      mutation: updateUser,
+      variables: { id, data: values },
+      loadingMessage: "Updating user...",
+      successMessage: "User updated successfully",
+      errorMessage: "Failed to update user",
+      onSuccess: () => {
+        router.push("/users")
+      },
+    })
   }
 
   return (

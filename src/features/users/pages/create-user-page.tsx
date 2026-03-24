@@ -7,6 +7,9 @@ import { PageHeader } from "@/shared/components/layout/page-header"
 
 import { UserForm } from "../components/user-form"
 import { useCreateUser } from "../hooks/use-create-user"
+import { PageCard } from "@/shared/components/layout/page-card"
+
+import { mutateWithToast } from "@/shared/utils/mutate-with-toast"
 
 export default function CreateUserPage() {
 
@@ -14,7 +17,12 @@ export default function CreateUserPage() {
   const createUser = useCreateUser()
 
   function handleSubmit(values: any) {
-    createUser.mutate(values, {
+    mutateWithToast({
+      mutation: createUser,
+      variables: values,
+      loadingMessage: "Creating user...",
+      successMessage: "User created successfully",
+      errorMessage: "Failed to create user",
       onSuccess: () => {
         router.push("/users")
       },
@@ -28,12 +36,14 @@ export default function CreateUserPage() {
         title="Create User"
         description="Add a new user"
       />
-
-      <UserForm
-        onSubmit={handleSubmit}
-        loading={createUser.isPending}
-        submitLabel="Create User"
-      />
+      
+      <PageCard>
+        <UserForm
+          onSubmit={handleSubmit}
+          loading={createUser.isPending}
+          submitLabel="Create User"
+        />
+      </PageCard>
 
     </PageContainer>
   )

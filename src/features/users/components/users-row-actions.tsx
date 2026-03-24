@@ -27,6 +27,7 @@ import { useState } from "react"
 import { User } from "../types/user"
 import { useDeleteUser } from "../hooks/use-delete-user"
 import { Can } from "@/shared/components/permission/can"
+import { mutateWithToast } from "@/shared/utils/mutate-with-toast"
 
 interface Props {
   user: User
@@ -44,8 +45,14 @@ export function UsersRowActions({ user }: Props) {
   }
 
   function handleDelete() {
-    deleteMutation.mutate(user.id)
-    setOpen(false)
+    mutateWithToast({
+      mutation: deleteMutation,
+      variables: user.id,
+      loadingMessage: "Deleting user...",
+      successMessage: "User deleted successfully",
+      errorMessage: "Failed to delete user",
+      onSuccess: () => setOpen(false),
+    })
   }
 
   return (

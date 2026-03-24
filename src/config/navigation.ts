@@ -1,4 +1,4 @@
-import { LucideIcon, LayoutDashboard, Users, Settings, UserRoundKey } from "lucide-react"
+import { LucideIcon, LayoutDashboard, Users, UserRoundKey } from "lucide-react"
 import { Permission } from "@/shared/constants/permissions"
 
 export interface NavItem {
@@ -25,10 +25,5 @@ export const navigation = [
     href: "/roles",
     icon: UserRoundKey,
     permission: "roles.view",
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: Settings,
   },
 ] 

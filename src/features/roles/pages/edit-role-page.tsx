@@ -12,12 +12,13 @@ import { useUpdateRole } from "../hooks/use-update-role"
 
 import { mutateWithToast } from "@/shared/utils/mutate-with-toast"
 
-export default function EditRolePage() {
+interface Props {
+  id: string
+}
 
-  const params = useParams()
+export default function EditRolePage({ id }: Props) {
+
   const router = useRouter()
-
-  const id = params.id as string
 
   const { data, isLoading } = useRole(id)
   const updateRole = useUpdateRole()

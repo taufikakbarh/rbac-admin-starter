@@ -53,7 +53,7 @@ export function Sidebar() {
 
           // protected route
           return (
-            <Can key={item.href} permission={item.permission}>
+            <Can key={item.href} permission={item.permission as any}>
               {content}
             </Can>
           )

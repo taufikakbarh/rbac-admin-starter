@@ -26,18 +26,29 @@ export async function getUsers({
   role,
 }: Params): Promise<PaginatedResponse<User>> {
 
-  const res = await api.get<JsonServerResponse<User>>("/users", {
-    params: {
-      _page: page,
-      _per_page: limit,
-      name: search || undefined,
-      role: role || undefined,
-    },
-  })
+  const res = await api.get<User[]>("/users")
+
+  let data = res.data
+
+  // 🔍 search
+  if (search) {
+    data = data.filter((u) =>
+      u.name.toLowerCase().includes(search.toLowerCase())
+    )
+  }
+
+  // 🎭 role filter
+  if (role) {
+    data = data.filter((u) => u.role === role)
+  }
+
+  // 📄 pagination (manual)
+  const start = (page - 1) * limit
+  const paginated = data.slice(start, start + limit)
 
   return {
-    data: res.data.data,
-    total: res.data.items,
+    data: paginated,
+    total: data.length,
     page,
     limit,
   }

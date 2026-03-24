@@ -31,17 +31,24 @@ export async function getRoles({
   search,
 }: Params): Promise<PaginatedResponse<Role>> {
 
-  const res = await api.get<JsonServerResponse<Role>>("/roles", {
-    params: {
-      _page: page,
-      _per_page: limit,
-      name: search || undefined,
-    },
-  })
+  const res = await api.get<Role[]>("/roles")
+
+  let data = res.data
+
+  // 🔍 search (client-side)
+  if (search) {
+    data = data.filter((r) =>
+      r.name.toLowerCase().includes(search.toLowerCase())
+    )
+  }
+
+  // 📄 pagination (client-side)
+  const start = (page - 1) * limit
+  const paginated = data.slice(start, start + limit)
 
   return {
-    data: res.data.data,
-    total: res.data.items,
+    data: paginated,
+    total: data.length,
     page,
     limit,
   }

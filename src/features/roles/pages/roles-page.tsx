@@ -27,7 +27,7 @@ export default function RolesPage() {
   const limit = Number(searchParams.get("limit") ?? 10)
   const search = searchParams.get("search") ?? ""
 
-  const { data, isLoading } = useRoles(
+  const { data, isLoading, isFetching } = useRoles(
     page,
     limit,
     search
@@ -80,7 +80,7 @@ export default function RolesPage() {
           <>
             <RolesTable
               data={data?.data ?? []}
-              loading={isLoading}
+              loading={isLoading || isFetching}
               renderToolbar={(table) => (
                 <DataTableToolbar
                   table={table}

@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { AuthUser } from "@/shared/types/auth"
 import Cookies from "js-cookie"
+import { toast } from "sonner"
 
 interface AuthContextValue {
   user: AuthUser | null
@@ -47,6 +48,8 @@ export function AuthProvider({
   function logout() {
     setUser(null)
     Cookies.remove("auth_user")
+
+    toast.success("Logged out")
   }
 
   return (

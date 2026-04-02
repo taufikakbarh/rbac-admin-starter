@@ -34,7 +34,7 @@ export default function LoginPage() {
 
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-semibold">
-            Admin CMS
+            RBAC Admin
           </h1>
           <p className="text-sm text-muted-foreground">
             Demo login to explore the system
@@ -53,14 +53,14 @@ export default function LoginPage() {
           className="w-full"
           onClick={() =>
             login({
-              id: "2",
+              id: "c561",
               name: "Toph",
               email: "toph@email.com",
               role: "Editor",
             })
           }
         >
-          Login as Viewer
+          Login as Editor
         </Button>
 
       </div>

@@ -42,7 +42,6 @@ export default function RootLayout({
               </PermissionProvider>
             </AuthProvider>
           </QueryProvider>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

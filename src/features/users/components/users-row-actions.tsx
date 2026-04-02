@@ -66,9 +66,11 @@ export function UsersRowActions({ user }: Props) {
 
         <DropdownMenuContent align="end">
 
-          <DropdownMenuItem onClick={handleEdit}>
-            Edit
-          </DropdownMenuItem>
+          <Can permission="users.update">
+            <DropdownMenuItem onClick={handleEdit}>
+              Edit
+            </DropdownMenuItem>
+          </Can>
 
           <Can permission="users.delete">
             <DropdownMenuItem

@@ -16,7 +16,7 @@ export function Sidebar() {
       {/* LOGO / TITLE */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold">
-          CMS Starter
+          RBAC Admin
         </h2>
       </div>
 
@@ -61,7 +61,7 @@ export function Sidebar() {
 
       </nav>
 
-      {/* OPTIONAL FOOTER (future) */}
+      {/* OPTIONAL FOOTER */}
       <div className="mt-auto pt-4 text-xs text-muted-foreground">
         v1.0.0
       </div>

@@ -5,6 +5,7 @@ import { Topbar } from "@/shared/components/layout/topbar"
 import { useAuth } from "@/shared/providers/auth-provider"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
+import { usePermissionContext } from "@/shared/providers/permission-provider"
 
 export default function DashboardLayout({
   children,
@@ -14,6 +15,8 @@ export default function DashboardLayout({
   const router = useRouter()
   
   const { user, loading } = useAuth()
+
+  const { previewRole } = usePermissionContext()
 
   useEffect(() => {
     if (!loading && !user) {
@@ -25,18 +28,25 @@ export default function DashboardLayout({
   if (!user) return null
 
   return (
-    <div className="flex h-screen">
+    <>
+      {previewRole && (
+        <div className="bg-yellow-100 text-yellow-800 px-4 py-2 text-sm text-center border-b">
+          Previewing as <strong>{previewRole}</strong>
+        </div>
+      )}
 
-      <Sidebar />
+      <div className="flex h-screen">
+        <Sidebar />
 
-      <div className="flex flex-col flex-1">
-        <Topbar />
+        <div className="flex flex-col flex-1">
+          <Topbar />
 
-        <main className="flex-1 p-6 overflow-auto">
-          {children}
-        </main>
+          <main className="flex-1 p-6 overflow-auto">
+            {children}
+          </main>
+        </div>
+
       </div>
-
-    </div>
+    </>
   )
 }

@@ -95,9 +95,9 @@ export default function LandingPage() {
         </p>
 
         <div className="mt-6">
-          <Button size="lg">
+          <a href="https://tophwork.gumroad.com/l/zcnrue" target="_blank">
             Get the Template
-          </Button>
+          </a>
         </div>
       </section>
 

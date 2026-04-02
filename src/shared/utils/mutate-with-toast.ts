@@ -1,5 +1,7 @@
 import { toast } from "sonner"
 
+const IS_DEMO = true
+
 interface Options<TData, TVariables> {
   mutation: {
     mutate: (
@@ -26,6 +28,11 @@ export function mutateWithToast<TData, TVariables>({
   onSuccess,
 }: Options<TData, TVariables>) {
   const id = toast.loading(loadingMessage)
+
+  if (IS_DEMO) {
+    toast.error("Demo mode: this action is disabled")
+    return
+  }
 
   mutation.mutate(variables, {
     onSuccess: (data) => {

@@ -17,7 +17,7 @@ A production-ready admin dashboard with role-based access control (RBAC), built 
 
 ## 🚀 Live Demo
 
-👉 https://your-demo-url.com
+👉 https://cms-starter-nu.vercel.app/
 
 Login as:
 

@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RBAC Admin Starter Kit
 
-## Getting Started
+A production-ready admin dashboard with role-based access control (RBAC), built with Next.js and Tailwind CSS.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- User management (create, edit, delete)
+- Role & permission system (RBAC)
+- 🔥 Live role preview (simulate permissions in real-time)
+- Protected routes
+- Clean and scalable architecture
+- Built with modern stack (Next.js App Router, React Query)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Live Demo
 
-## Learn More
+👉 https://your-demo-url.com
 
-To learn more about Next.js, take a look at the following resources:
+Login as:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Admin → full access
+- Editor → limited access
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧠 Why This Exists
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Building role-based access control from scratch is time-consuming and error-prone.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This starter kit helps you skip the boring setup and focus on your product.
+
+---
+
+## 🛠 Tech Stack
+
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- React Query
+- Zod
+- TypeScript
+
+---
+
+## 📦 What’s Included
+
+- Full source code
+- RBAC system (users, roles, permissions)
+- Role preview feature
+- Example data (Admin, Editor, User)
+- Clean folder structure
+
+---
+
+## ⚡ Getting Started
+
+See [setup-guide.md](./setup-guide.md)
+
+---
+
+## 📄 License
+
+This project is provided for learning and commercial use.
+
+---
+
+## 🙌 Author
+
+Built by Taufik — frontend developer with 10+ years experience.

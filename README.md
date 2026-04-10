@@ -4,14 +4,52 @@ A production-ready admin dashboard with role-based access control (RBAC), built 
 
 ---
 
+## 🎯 Overview
+
+This project demonstrates how to build a scalable admin system with permission-based access control.
+
+It focuses on:
+
+- Structuring frontend applications for real-world complexity
+- Managing roles and permissions effectively
+- Building reusable and maintainable UI patterns
+
+---
+
+## 🔥 Key Highlight
+
+### Live Role Preview System
+
+A unique feature that allows simulating roles in real-time:
+
+- Switch roles instantly from the UI
+- See how permissions affect the interface immediately
+- No reload, no re-login required
+
+This helps visualize and debug access control systems efficiently.
+
+---
+
 ## ✨ Features
 
 - User management (create, edit, delete)
 - Role & permission system (RBAC)
+- Permission-based UI rendering
 - 🔥 Live role preview (simulate permissions in real-time)
 - Protected routes
 - Clean and scalable architecture
-- Built with modern stack (Next.js App Router, React Query)
+
+---
+
+## 🧠 Architecture
+
+Designed with scalability and maintainability in mind:
+
+- Feature-based folder structure
+- Centralized API layer using React Query
+- Reusable form system with validation (React Hook Form + Zod)
+- Permission provider for RBAC logic
+- Optional demo mode (safe mutations)
 
 ---
 
@@ -24,13 +62,7 @@ Login as:
 - Admin → full access
 - Editor → limited access
 
----
-
-## 🧠 Why This Exists
-
-Building role-based access control from scratch is time-consuming and error-prone.
-
-This starter kit helps you skip the boring setup and focus on your product.
+💡 Try switching roles in the top bar to see the UI update in real time.
 
 ---
 
@@ -51,7 +83,7 @@ This starter kit helps you skip the boring setup and focus on your product.
 - RBAC system (users, roles, permissions)
 - Role preview feature
 - Example data (Admin, Editor, User)
-- Clean folder structure
+- Clean and extensible structure
 
 ---
 
